@@ -1,9 +1,8 @@
-import SignIn from '@/pages/SignIn'
-import React from 'react'
 import { FaSearch, FaUser, FaShoppingCart } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const StickyHeader = () => {
+    const navigate = useNavigate()
     return (
         <div className="sticky top-0 z-50 bg-white shadow-md">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
@@ -19,9 +18,7 @@ const StickyHeader = () => {
                 <div className="flex items-center gap-4">
                     <FaShoppingCart />
                     <FaUser />
-                    <Link to="/signin">
-                        <SignIn />
-                    </Link>
+                    <button onClick={() => navigate('/signin') } className='bg-blue-500 text-white p-2 rounded-md'>Sign In</button>
                 </div>
             </div>
         </div>
