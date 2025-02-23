@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import OAuth from "@/components/OAuth";
 // import { Button } from "@/components/ui/button";
 
 const SignUp = () => {
@@ -8,7 +9,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
  
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
     console.log(formData);
   };
@@ -79,6 +80,8 @@ const SignUp = () => {
           >
             {loading ? 'Loading...' : 'Sign Up'}
           </button>
+          <p className="text-sm text-center">or sign up with</p>
+          <OAuth />
         </form>
         <div className='flex gap-2 mt-3'>
           <p>Have an account?</p>

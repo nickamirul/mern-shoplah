@@ -2,21 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 // import { Button } from "@/components/ui/button";
 
-interface FormData {
-  email: string;
-  password: string;
-}
-
-interface UserState {
-  loading: boolean;
-  error: string | null;
-}
-
 const SignIn = () => {
-  const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
-  const { loading, error } = useSelector((state: { user: UserState }) => state.user);
+  const [formData, setFormData] = useState({});
+  const {loading, error} = useSelector((state: any) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
  
@@ -36,20 +27,16 @@ const SignIn = () => {
         },
         body: JSON.stringify(formData),
       });
-
-      if (!res.ok) {
-        throw new Error('Failed to sign in');
-      }
-
       const data = await res.json();
+      console.log(data);
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
       dispatch(signInSuccess(data));
       navigate('/');
-    } catch (error) {
-      dispatch(signInFailure((error as Error).message));
+    } catch (error: any) {
+      dispatch(signInFailure(error.message));
     }
   };
   return (
@@ -84,6 +71,8 @@ const SignIn = () => {
           >
             {loading ? 'Loading...' : 'Sign In'}
           </button>
+          <p className="text-sm text-center">or sign in with</p>
+          <OAuth />
         </form>
         <div className='flex gap-2 mt-3'>
           <p>Don't have an account?</p>
