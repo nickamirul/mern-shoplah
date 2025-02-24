@@ -5,6 +5,7 @@ import Profile from "@/pages/Profile"
 import SignIn from "@/pages/SignIn"
 import SignUp from "@/pages/SignUp"
 import StickyHeader from "./components/StickyHeader"
+import PrivateRoute from "./components/PrivateRoute"
 
 
 function App() {
@@ -13,7 +14,9 @@ function App() {
       <StickyHeader />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
