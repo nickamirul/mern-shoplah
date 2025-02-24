@@ -20,7 +20,7 @@ export default function ProductCard({ product }: { product: Product }) {
       </CardHeader>
       <CardContent className="p-4">
         <CardTitle className="text-lg font-semibold">{product.name}</CardTitle>
-        <p className="text-gray-500">${product.price}</p>
+        <p className="text-gray-500">RM {product.price}</p>
       </CardContent>
       <CardFooter className="flex justify-between p-4">
         <Button variant="outline">Add to Cart</Button>

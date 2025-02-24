@@ -1,6 +1,7 @@
 import { FaSearch, FaUser, FaShoppingCart } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { Button } from '@/components/ui/button'
 // import { RootState } from '../redux/store'; // Assuming you have a RootState type
 
 const StickyHeader = () => {
@@ -34,12 +35,14 @@ const StickyHeader = () => {
                                     onError={(e) => { e.currentTarget.src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"; }}
                                 />
                             ) : (
-                                <FaUser  />
+                                <button onClick={() => navigate('/profile')} >
+                                    <FaUser  />
+                                </button>
                             )
                         ) : (
-                            <button onClick={() => navigate('/signin')} className="bg-blue-500 text-white p-2 rounded-md">
-                                <p className="text-black hover:opacity-70">Sign In</p>
-                            </button>
+                            <Button onClick={() => navigate('/signin')} className="bg-black text-white p-2 rounded-md">
+                                <p className="text-white hover:opacity-70">Sign In</p>
+                            </Button>
                         )}
                     </Link>
                 </div>

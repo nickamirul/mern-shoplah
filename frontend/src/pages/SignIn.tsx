@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
-// import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -30,7 +30,8 @@ const SignIn = () => {
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
-        dispatch(signInFailure(data.message));
+        // dispatch(signInFailure(data.message));
+        dispatch(signInFailure("Invalid email or password"));
         return;
       }
       dispatch(signInSuccess(data));
@@ -65,12 +66,12 @@ const SignIn = () => {
               onChange={handleChange}
             />
           </div>
-          <button
+          <Button
             disabled={loading}
-            className='bg-blue-500 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80'
+            className='bg-black text-white p-6 text-lg rounded-lg uppercase hover:bg-black/80 disabled:opacity-80'
           >
             {loading ? 'Loading...' : 'Sign In'}
-          </button>
+          </Button>
           <p className="text-sm text-center">or sign in with</p>
           <OAuth />
         </form>

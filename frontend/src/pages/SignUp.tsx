@@ -1,17 +1,24 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import OAuth from "@/components/OAuth";
-// import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
     console.log(formData);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,28 +71,35 @@ const SignUp = () => {
               onChange={handleChange}
             />
           </div>  
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <p className="text-sm font-semibold">Password</p>
             <input
-              type='password'
+              type={showPassword ? "text" : "password"}
               placeholder='password'
               className='border p-3 rounded-lg bg-white'
               id='password'
               onChange={handleChange}
             />
+             <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-3 top-[50px] transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </button>
           </div>
-          <button
+          <Button
             onClick={handleSubmit}
-            className='bg-blue-500 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80'
+            className='bg-black text-white p-6 text-lg rounded-lg uppercase hover:bg-black/80 disabled:opacity-80'
           >
             {loading ? 'Loading...' : 'Sign Up'}
-          </button>
+          </Button>
           <p className="text-sm text-center">or sign up with</p>
           <OAuth />
         </form>
         <div className='flex gap-2 mt-3'>
           <p>Have an account?</p>
-          <Link to='signin'>
+          <Link to='/signin'>
             <span className="text-blue-500">Sign In</span>
           </Link>
         </div>

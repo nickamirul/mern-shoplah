@@ -142,8 +142,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="relative bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-semibold text-center my-7 text-gray-800">Profile</h1>
+    <div className="relative bg-gray-50 min-h-screen pt-5">
+      <h1 className="text-3xl font-semibold text-center my-5 text-gray-800">Profile</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-6 max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
