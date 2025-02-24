@@ -17,15 +17,20 @@ import { app } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
+interface FormData {
+  avatar?: string;
+  // Add other properties as needed
+}
+
 const Profile = () => {
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileRef = useRef(null);
-  const [file, setFile] = useState(undefined);
+  const [file, setFile] = useState<File | undefined>(undefined);
   const [filePercent, setFilePercent] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<FormData>({});
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -77,11 +82,17 @@ const Profile = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  useEffect(() => {
+    console.log("Updated formData:", formData);
+  }, [formData]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form Data before update:", formData);
     try {
+      console.log("Form Data 1 before update:", formData);
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`/v1/user/update/${currentUser._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,6 +104,7 @@ const Profile = () => {
         dispatch(updateUserFailure(data.message));
         return;
       }
+      console.log("Form Data after update:", formData);
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
     } catch (error) {
@@ -144,7 +156,7 @@ const Profile = () => {
           accept="image/*"
         />
         <img
-          onClick={() => fileRef.current.click()}
+          onClick={() => fileRef.current && fileRef.current.click()}
           src={formData.avatar || currentUser.avatar}
           alt="profile"
           className="h-24 w-24 object-cover rounded-full mx-auto cursor-pointer border-2 border-gray-300"
