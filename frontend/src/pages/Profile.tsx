@@ -6,7 +6,7 @@ import {
   updateUserSuccess,
   updateUserFailure,
 } from "../redux/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getStorage,
   ref,
@@ -16,6 +16,7 @@ import {
 import { app } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@/components/ui/button";
 
 interface FormData {
   avatar?: string;
@@ -266,6 +267,11 @@ const Profile = () => {
           </div>
         </div>
       )}
+      <div className="flex justify-center items-center">
+          <Link to="/ProductForm">
+            <Button>Create Product</Button>
+          </Link>
+      </div>
     </div>
   );
 };
