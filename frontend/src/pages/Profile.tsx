@@ -118,7 +118,7 @@ const Profile = () => {
 
   const handleSignOutConfirm = async () => {
     try {
-      const res = await fetch("/api/auth/signout", {
+      const res = await fetch("/v1/auth/signout", {
         method: "POST",
       });
       const data = await res.json();
